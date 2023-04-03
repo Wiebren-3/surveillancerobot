@@ -2,64 +2,79 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Robot Afstandsbediening </title>
+  <title>Robot Afstandsbediening</title>
   <style>
+    /* ChatGPT theme */
     body {
-      background-color: #121212;
-      color: #fff;
-      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #1c1c1e;
+      color: #e0e0e0;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
     }
+    
     h1 {
-      color: #fff;
-      font-size: 36px;
-      font-weight: bold;
+      margin-top: 40px;
+      margin-bottom: 20px;
       text-align: center;
-      margin-top: 50px;
     }
+    
     button {
-      background-color: #363636;
+      background-color: #ffcc2a;
       border: none;
-      color: #fff;
+      border-radius: 5px;
+      color: #1c1c1e;
+      cursor: pointer;
       font-size: 24px;
       font-weight: bold;
-      margin: 20px 10px;
-      padding: 20px 40px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      margin: 10px;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
     }
+    
     button:hover {
-      background-color: #555555;
+      background-color: #ffd966;
     }
-    #controls {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 50px;
+    
+    /* Side bar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 200px;
+      height: 100%;
+      background-color: #2d2d30;
+      padding: 20px;
+      box-sizing: border-box;
     }
-    #controls img {
-      width: 100px;
-      height: 100px;
-      cursor: pointer;
-      transition: all 0.3s ease;
+    
+    .sidebar h2 {
+      color: #e0e0e0;
+      font-size: 20px;
+      margin-top: 0;
     }
-    #controls img:hover {
-      opacity: 0.8;
+    
+    .sidebar p {
+      color: #b8b8b8;
+      font-size: 16px;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <h1>Robot Afstandsbediening</h1>
-  <div id="controls">
-    <img src="https://i.ibb.co/9yGBG7f/arrow-up.png" alt="forward" id="forward">
-    <img src="https://i.ibb.co/N9kF2Vt/arrow-down.png" alt="backward" id="backward">
-    <img src="https://i.ibb.co/1GxjKkD/arrow-left.png" alt="left" id="left">
-    <img src="https://i.ibb.co/5WcR5RJ/arrow-right.png" alt="right" id="right">
+  <div class="sidebar">
+    <h2>Robot Afstandsbediening</h2>
+    <p>Gebruik de knoppen hieronder om de robot te besturen.</p>
+    <button id="forward">Vooruit</button>
+    <br>
+    <button id="left">Links</button>
     <button id="stop">Stop</button>
+    <button id="right">Rechts</button>
+    <br>
+    <button id="backward">Achteruit</button>
   </div>
-  <script>
-    // Verbinding maken met de websockets-server op het IP-adres van de robot
-    const socket = new WebSocket('ws://192.168.1.100:8080');
- </script>
+  
+  <script src="robot-control.js"></script>
 </body>
 </html>
