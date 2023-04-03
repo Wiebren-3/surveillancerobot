@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Robot Afstandsbediening</title>
-  <link rel="icon" href="point.png">
   <style>
     body {
       background-color: #1c1c1e;
@@ -60,10 +59,21 @@
       font-size: 16px;
       margin-top: 10px;
     }
+
+    /* Twitch stream frame */
+    .twitch-stream {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 450px;
+      border: 2px solid #e0e0e0;
+    }
   </style>
 </head>
 <body>
-   <div class="sidebar2">
+  <div class="sidebar2">
     <div class="menu-logo">
       <img src="logo.png" alt="Logo">
     </div>
@@ -87,6 +97,8 @@
     <button id="right">Rechts</button>
     <button id="stop">Stop</button>
     <br>
-  <script src="robot-control.js"></script>
-</body>
-</html>
+  </div>
+
+  <iframe class="twitch-stream" src="https://player.twitch.tv/?channel=wiebren3" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>
+
+  <script src
