@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="point.png">
+    <title>Meadow Map | Drawing Route</title>
+    <style>
+        body {
+            background-color: #7c7c7c;
+            margin: 0;
+            padding: 0;
+            font-family: "Abadi MT", sans-serif;
+            color: #ffffff;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            background-color: #313131;
+            text-align: center;
+            flex: 1;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+
+        .sidebar {
+            background-color: #222222;
+            width: 200px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-logo {
+            margin-top: 20px;
+        }
+
+        .menu-text {
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .menu-item {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+            text-align: left;
+        }
+
+        .menu-item:hover {
+            background-color: #ffffff;
+            color: #222222;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="menu-logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <div class="menu-text">
+            Surveillance Robot
+        </div>
+        <a href="index.html" class="menu-item">Home</a>
+    <a href="camera.html" class="menu-item">Camera</a>
+    <a href="connection.html" class="menu-item">Connection</a>
+    <a href="info.html" class="menu-item">Info</a>
+    <a href="control.html" class="menu-item">Live Control</a>
+    <a href="settings.html" class="menu-item">Settings</a>
+        </div>
+        <div class="container">
+        <h1>Meadow Map</h1>
+        <img src="image.png" alt="Image">
+    </div>
+</body>
+</html>

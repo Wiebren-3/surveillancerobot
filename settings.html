@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Settings</title>
+	<style>
+		body {
+			background-color: #2c2c2c;
+			margin: 0;
+			padding: 0;
+			font-family: "Abadi MT", sans-serif;
+			color: #ffffff;
+		}
+
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			box-sizing: border-box;
+			border: 2px solid #2c2c2c;
+			border-radius: 10px;
+			background-color: #4d4d4d;
+			text-align: center;
+		}
+
+		h1 {
+			margin-top: 0;
+		}
+
+		p {
+			margin-bottom: 0;
+		}
+
+		button {
+			margin-top: 10px;
+			padding: 10px;
+			background-color: #ffffff;
+			color: #2c2c2c;
+			border: 2px solid #2c2c2c;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background-color: #2c2c2c;
+			color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>User Settings</h1>
+		<p>Username: <span id="username"></span></p>
+		<p>Password: <span id="password"></span></p>
+		<button id="logout-button">Log Out</button>
+	</div>
+
+	<script>
+		// Get the username and password from the local storage
+		const username = localStorage.getItem('username');
+		const password = localStorage.getItem('password');
+
+		// Set the username and password in the HTML
+		document.getElementById('username').textContent = username;
+		document.getElementById('password').textContent = password;
+
+		// Add event listener to the logout button
+		document.getElementById('logout-button').addEventListener('click', () => {
+			// Remove the username and password from the local storage
+			localStorage.removeItem('username');
+			localStorage.removeItem('password');
+			// Redirect the user to the login page
+			window.location.href = 'login.html';
+		});
+	</script>
+</html>
