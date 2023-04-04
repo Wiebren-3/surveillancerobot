@@ -21,12 +21,7 @@
 		}).addTo(map);
 		
 		var markers = [];
-		
-		map.on('click', function(e) {
-			markers.push(e.latlng);
-			drawMarkers();
-			drawRoute();
-		});
+		var route;
 		
 		function drawMarkers() {
 			for (var i = 0; i < markers.length; i++) {
@@ -36,17 +31,30 @@
 		
 		function drawRoute() {
 			if (markers.length > 1) {
-				var route = L.polyline(markers).addTo(map);
+				route = L.polyline(markers).addTo(map);
 			}
 		}
 		
-		document.getElementById('reset-button').addEventListener('click', function() {
+		function resetMarkers() {
 			for (var i = 0; i < markers.length; i++) {
 				map.removeLayer(markers[i]);
 			}
 			markers = [];
-			map.removeLayer(route);
+			if (route) {
+				map.removeLayer(route);
+			}
+		}
+		
+		map.on('click', function(e) {
+			markers.push(e.latlng);
+			drawMarkers();
+			drawRoute();
+		});
+		
+		document.getElementById('reset-button').addEventListener('click', function() {
+			resetMarkers();
 		});
 	</script>
 </body>
 </html>
+
