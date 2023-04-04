@@ -4,15 +4,22 @@
 	<meta charset="utf-8" />
 	<title>Add Route</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+	<style>
+		body {
+			background-color: #f1f1f1; /* grijze achtergrond */
+			font-family: "Abadi MT", sans-serif; /* lettertype Abadi MT */
+		}
+	</style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
 </head>
 <body>
 	<h1>Add Route</h1>
 	<div id="map" style="height: 500px;"></div>
 	<button id="reset-button">Reset Markers</button>
+	<button id="export-button">Export Coords</button>
 
 	<script>
-		var map = L.map('map').setView([51.505, -0.09], 13);
+				var map = L.map('map').setView([51.505, -0.09], 13);
 		
 		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
@@ -57,4 +64,3 @@
 	</script>
 </body>
 </html>
-
