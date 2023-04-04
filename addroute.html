@@ -19,6 +19,27 @@
         background-color: black;
         color: white;
       }
+      .buttons {
+        position: absolute;
+        top: 50px;
+        right: 20px;
+      }
+
+    .buttons button {
+       display: block;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: #0074D9;
+    cursor: pointer;
+      }
+
+  .buttons button:hover {
+    background-color: #0063aa;
+      }
+
       .menu-logo {
         text-align: center;
         margin-bottom: 10px;
@@ -69,5 +90,10 @@
     <div id="mapid"></div>
     <div id="distance"></div>
     <script src="app.js"></script>
+    <div class="buttons">
+  <button id="reset">Reset Route</button>
+  <button id="start">Start Route</button>
+  <button id="stop">Stop Route</button>
+</div>
   </body>
 </html>
