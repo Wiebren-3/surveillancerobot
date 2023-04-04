@@ -1,104 +1,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Robot Information</title>
-	<style type="text/css">
-		body {
-			margin: 0;
-			padding: 0;
-			font-family: Arial, sans-serif;
-			background-color: #f2f2f2;
-		}
-    	.sidebar {
-		height: 100vh;
-		width: 200px;
-		position: fixed;
-		top: 0;
-		left: 0;
-		background-color: #333;
-		color: #fff;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding-top: 20px;
-		box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-	}
+    <link rel="icon" href="point.png">
+    <title>Surveillance Robot - Info</title>
+    <style>
+        body {
+            background-color: #7c7c7c;
+            margin: 0;
+            padding: 0;
+            font-family: "Abadi MT", sans-serif;
+            color: #ffffff;
+            display: flex;
+            flex-direction: row;
+        }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+        border: 2px solid #000000;
+        border-radius: 10px;
+        background-color: #313131;
+        text-align: center;
+        flex: 1;
+    }
 
-	.menu-logo img {
-		height: 50px;
-	}
+    .sidebar {
+        background-color: #222222;
+        width: 200px;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-	.menu-text {
-		font-size: 24px;
-		margin-top: 20px;
-		margin-bottom: 30px;
-	}
+    .menu-logo {
+        margin-top: 20px;
+    }
 
-	.menu-item {
-		padding: 10px;
-		width: 100%;
-		text-align: center;
-		border-bottom: 1px solid #fff;
-		text-decoration: none;
-		color: #fff;
-	}
+    .menu-text {
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: bold;
+    }
 
-	.menu-item:hover {
-		background-color: #555;
-	}
+    .menu-item {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 10px;
+        border-radius: 5px;
+        transition: all 0.3s ease-in-out;
+        text-align: left;
+    }
 
-	.active {
-		background-color: #555;
-	}
-
-	.main-content {
-		margin-left: 220px;
-		margin-top: 20px;
-		padding: 20px;
-		background-color: #fff;
-		box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-		border-radius: 10px;
-		min-height: 500px;
-	}
-
-	h1 {
-		font-size: 32px;
-		margin-bottom: 20px;
-	}
-
-	ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-
-	li {
-		margin-bottom: 10px;
-	}
-
+    .menu-item:hover {
+        background-color: #ffffff;
+        color: #222222;
+    }
 </style>
- </head>
+</head>
 <body>
-	<div class="sidebar">
-		<div class="menu-logo">
-			<img src="logo.png" alt="Logo">
-		</div>
-		<div class="menu-text">
-			Surveillance Robot
-		</div>
-		<a href="addroute.html" class="menu-item">Add Route</a>
-	    <a href="connection.html" class="menu-item">Connection</a>
-	    <a href="info.html" class="menu-item active">Info</a>
-	    <a href="control.html" class="menu-item" target="_blank">Live Control</a>
-	    <a href="settings.html" class="menu-item" target="_blank">Settings</a>
-	</div>
-	<div class="main-content">
-		<h1>Robot Information</h1>
-		<ul>
-			<li>Serial Number: 56232</li>
-			<li>Operating System: 1.1</li>
-			<li>Type: Surveillance Robot - Vigi (1.1)</li>
-		</ul>
-	</div>
+    <div class="sidebar">
+        <div class="menu-logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <div class="menu-text">
+            Surveillance Robot
+        </div>
+        <a href="addroute.html" class="menu-item">Add Route</a>
+        <a href="connection.html" class="menu-item">Connection</a>
+        <a href="info.html" class="menu-item">Info</a>
+        <a href="control.html" class="menu-item" target="_blank">Live Control</a>
+        <a href="settings.html" class="menu-item" target="_blank">Settings</a>
+    </div>
+    <div class="container">
+        <h1>Robot Information</h1>
+        <p>Serial Number: 56232</p>
+        <p>Operating System: 1.1</p>
+        <p>Type: Surveillance Robot - Vigi (1.1)</p>
+    </div>
 </body>
 </html>
