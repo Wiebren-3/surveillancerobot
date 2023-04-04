@@ -6,9 +6,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <style>
+      .sidebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 100%;
+        background-color: #f0f0f0;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      .menu-logo {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .menu-logo img {
+        max-width: 100%;
+        height: auto;
+      }
+      .menu-text {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .menu-item {
+        display: block;
+        margin-bottom: 10px;
+        color: #000;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .menu-item:hover {
+        color: #fff;
+        background-color: #000;
+      }
+      #mapid {
+        position: absolute;
+        top: 0;
+        left: 200px;
+        bottom: 0;
+        right: 0;
+      }
+    </style>
   </head>
   <body>
-    <div id="mapid" style="height: 400px;"></div>
+    <div class="sidebar">
+      <div class="menu-logo">
+        <img src="logo.png" alt="Logo">
+      </div>
+      <div class="menu-text">
+        Surveillance Robot
+      </div>
+      <a href="addroute.html" class="menu-item">Add Route</a>
+      <a href="connection.html" class="menu-item">Connection</a>
+      <a href="info.html" class="menu-item">Info</a>
+      <a href="control.html" class="menu-item" target="_blank">Live Control</a>
+      <a href="settings.html" class="menu-item" target="_blank">Settings</a>
+    </div>
+    <div id="mapid"></div>
     <div id="distance"></div>
     <script src="app.js"></script>
   </body>
