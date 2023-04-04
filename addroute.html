@@ -1,40 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Route Planner</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
-  </head>
-  <body>
-    <div class="header">
-      <div class="header-container">
-        <div class="header-text">
-          <h1>Add Route</h1>
-        </div>
-      </div>
-    </div>
-    <div class="sidebar">
-      <div class="menu-logo">
-        <img src="logo.png" alt="Logo">
-      </div>
-      <div class="menu-text">
-        Surveillance Robot
-      </div>
-      <a href="addroute.html" class="menu-item">Add Route</a>
-      <a href="connection.html" class="menu-item">Connection</a>
-      <a href="info.html" class="menu-item">Info</a>
-      <a href="control.html" class="menu-item" target="_blank">Live Control</a>
-      <a href="settings.html" class="menu-item" target="_blank">Settings</a>
-    </div>
-    <div id="mapid"></div>
-    <div class="controls">
-      <button id="resetBtn">Reset</button>
-      <button id="startBtn">Start</button>
-      <button id="stopBtn">Stop</button>
-    </div>
-    <script src="app.js"></script>
-  </body>
+<head>
+	<meta charset="utf-8" />
+	<title>Add Route</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+</head>
+<body>
+	<h1>Add Route</h1>
+	<div id="map" style="height: 500px;"></div>
+	<button id="reset-button">Reset Markers</button>
+
+	<script>
+		var map = L.map('map').setView([51.505, -0.09], 13);
+		
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+			maxZoom: 18,
+			id: 'osm'
+		}).addTo(map);
+		
+		var markers = [];
+		
+		map.on('click', function(e) {
+			markers.push(e.latlng);
+			drawMarkers();
+			drawRoute();
+		});
+		
+		function drawMarkers() {
+			for (var i = 0; i < markers.length; i++) {
+				var marker = L.marker(markers[i]).addTo(map);
+			}
+		}
+		
+		function drawRoute() {
+			if (markers.length > 1) {
+				var route = L.polyline(markers).addTo(map);
+			}
+		}
+		
+		document.getElementById('reset-button').addEventListener('click', function() {
+			for (var i = 0; i < markers.length; i++) {
+				map.removeLayer(markers[i]);
+			}
+			markers = [];
+			map.removeLayer(route);
+		});
+	</script>
+</body>
 </html>
