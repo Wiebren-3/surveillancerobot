@@ -4,9 +4,18 @@
     <title>Route Planner</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
   </head>
   <body>
+    <div class="header">
+      <div class="header-container">
+        <div class="header-text">
+          <h1>Add Route</h1>
+        </div>
+      </div>
+    </div>
     <div class="sidebar">
       <div class="menu-logo">
         <img src="logo.png" alt="Logo">
@@ -20,24 +29,12 @@
       <a href="control.html" class="menu-item" target="_blank">Live Control</a>
       <a href="settings.html" class="menu-item" target="_blank">Settings</a>
     </div>
-
-    <div class="container">
-      <div class="header">
-        <div class="title">
-          <h1 style="font-family: 'Abadi MT', sans-serif;">Add Route</h1>
-        </div>
-      </div>
-
-      <div id="mapid"></div>
-
-      <div class="button-container">
-        <button id="reset-button">Reset Route</button>
-        <button id="start-button">Start Route</button>
-        <button id="stop-button">Stop Route</button>
-      </div>
+    <div id="mapid"></div>
+    <div class="controls">
+      <button id="resetBtn">Reset</button>
+      <button id="startBtn">Start</button>
+      <button id="stopBtn">Stop</button>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
