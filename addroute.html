@@ -5,76 +5,77 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
     <style>
-      .sidebar {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 200px;
-        height: 100%;
-        background-color: #f0f0f0;
-        padding: 20px;
-        box-sizing: border-box;
-        background-color: black;
-        color: white;
+      body {
+        margin: 0;
+        font-family: 'Abadi MT', sans-serif;
       }
+      
       .sidebar {
         background-color: #222;
         color: white;
         font-family: 'Abadi MT', sans-serif;
-      }
-      .buttons {
-        position: absolute;
-        top: 50px;
-        right: 20px;
-      }
-
-    .buttons button {
-       display: block;
-       margin-bottom: 10px;
-       padding: 5px 10px;
-       border-radius: 5px;
-       border: none;
-       color: white;
-       background-color: #0074D9;
-       cursor: pointer;
-      }
-
-    .buttons button:hover {
-    background-color: #0063aa;
-      }
-
-      .menu-logo {
-        text-align: center;
-        margin-bottom: 10px;
-      }
-      .menu-logo img {
-        max-width: 100%;
-        height: auto;
-      }
-      .menu-text {
-        text-align: center;
-        font-weight: bold;
-        margin-bottom: 20px;
-      }
-      .menu-item {
-        display: block;
-        margin-bottom: 10px;
-        color: #000;
-        text-decoration: none;
-        font-weight: bold;
-      }
-      .menu-item:hover {
-        color: #fff;
-        background-color: #000;
-      }
-      #mapid {
         position: absolute;
         top: 0;
-        left: 200px;
-        bottom: 0;
-        right: 0;
+        left: 0;
+        height: 100%;
+        width: 200px;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      
+      .menu-logo img {
+        width: 100%;
+        max-width: 60px;
+        display: block;
+        margin: 0 auto;
+      }
+      
+      .menu-text {
+        font-size: 1.2em;
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 30px;
+      }
+      
+      .menu-item {
+        display: block;
+        margin-bottom: 15px;
+        color: white;
+        text-decoration: none;
+        font-size: 1.1em;
+      }
+      
+      .menu-item:hover {
+        text-decoration: underline;
+      }
+      
+      .reset-button,
+      .start-button,
+      .stop-button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 10px 0;
+        cursor: pointer;
+      }
+      
+      .reset-button:hover,
+      .start-button:hover,
+      .stop-button:hover {
+        background-color: #3e8e41;
+      }
+      
+      .button-container {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
       }
     </style>
   </head>
@@ -92,13 +93,14 @@
       <a href="control.html" class="menu-item" target="_blank">Live Control</a>
       <a href="settings.html" class="menu-item" target="_blank">Settings</a>
     </div>
-    <div id="mapid"></div>
+    <div id="mapid" style="height: 400px;"></div>
     <div id="distance"></div>
+    <div class="button-container">
+      <button class="reset-button">Reset Route</button>
+      <button class="start-button">Start Route</button>
+      <button class="stop-button">Stop Route</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
     <script src="app.js"></script>
-    <div class="buttons">
-  <button id="reset">Reset Route</button>
-  <button id="start">Start Route</button>
-  <button id="stop">Stop Route</button>
-</div>
   </body>
 </html>
