@@ -1,8 +1,43 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>OpenStreetMap Example</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha384-OUrGzVZ1/HQ5R7st9Xc2uyAXFU6gqlStKilxIlkRPtdrv6AZpHWwUZB6UZ0l9KvH" crossorigin=""/>
+  <head>
+    <title>Route Planner</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="menu-logo">
+        <img src="logo.png" alt="Logo">
+      </div>
+      <div class="menu-text">
+        Surveillance Robot
+      </div>
+      <a href="addroute.html" class="menu-item">Add Route</a>
+      <a href="connection.html" class="menu-item">Connection</a>
+      <a href="info.html" class="menu-item">Info</a>
+      <a href="control.html" class="menu-item" target="_blank">Live Control</a>
+      <a href="settings.html" class="menu-item" target="_blank">Settings</a>
+    </div>
 
+    <div class="container">
+      <div class="header">
+        <div class="title">
+          <h1 style="font-family: 'Abadi MT', sans-serif;">Add Route</h1>
+        </div>
+      </div>
+
+      <div id="mapid"></div>
+
+      <div class="button-container">
+        <button id="reset-button">Reset Route</button>
+        <button id="start-button">Start Route</button>
+        <button id="stop-button">Stop Route</button>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
