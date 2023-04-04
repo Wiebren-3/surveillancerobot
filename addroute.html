@@ -1,34 +1,15 @@
-var map = L.map('mapid').setView([51.505, -0.09], 13);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
-    maxZoom: 18,
-}).addTo(map);
-
-var markers = [];
-var polyline;
-
-map.on('click', function(e) {
-    var marker = L.marker(e.latlng).addTo(map);
-    markers.push(marker);
-    
-    if (markers.length > 1) {
-        if (polyline) {
-            map.removeLayer(polyline);
-        }
-        polyline = L.polyline(markers.map(function(m) { return m.getLatLng() }));
-        polyline.addTo(map);
-    }
-    
-    updateDistance();
-});
-
-function updateDistance() {
-    var distance = 0;
-    if (markers.length > 1) {
-        for (var i = 0; i < markers.length - 1; i++) {
-            distance += markers[i].getLatLng().distanceTo(markers[i + 1].getLatLng());
-        }
-    }
-    document.getElementById('distance').innerHTML = 'Total Distance: ' + distance.toFixed(2) + ' meters';
-}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Route Planner</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+  </head>
+  <body>
+    <div id="mapid" style="height: 400px;"></div>
+    <div id="distance"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
