@@ -1,30 +1,52 @@
-var map = L.map('mapid').setView([51.505, -0.09], 13);
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Add Route</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+</head>
+<body>
+	<h1>Add Route</h1>
+	<div id="map" style="height: 500px;"></div>
+	<button id="reset-button">Reset Markers</button>
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-  maxZoom: 18,
-}).addTo(map);
-
-var markers = [];
-
-function onMapClick(e) {
-  var marker = L.marker(e.latlng).addTo(map);
-  markers.push(marker);
-  if (markers.length > 1) {
-    var lastMarker = markers[markers.length - 2];
-    var polyline = L.polyline([lastMarker.getLatLng(), marker.getLatLng()], { color: 'red' }).addTo(map);
-    markers[markers.length - 2].polyline = polyline;
-  }
-  if (markers.length > 2) {
-    var firstMarker = markers[0];
-    var lastMarker = markers[markers.length - 1];
-    var polyline = L.polyline([lastMarker.getLatLng(), firstMarker.getLatLng()], { color: 'red' }).addTo(map);
-    markers[0].polyline = polyline;
-  }
-}
-
-map.on('click', onMapClick);
-
-document
+	<script>
+		var map = L.map('map').setView([51.505, -0.09], 13);
+		
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+			maxZoom: 18,
+			id: 'osm'
+		}).addTo(map);
+		
+		var markers = [];
+		
+		map.on('click', function(e) {
+			markers.push(e.latlng);
+			drawMarkers();
+			drawRoute();
+		});
+		
+		function drawMarkers() {
+			for (var i = 0; i < markers.length; i++) {
+				var marker = L.marker(markers[i]).addTo(map);
+			}
+		}
+		
+		function drawRoute() {
+			if (markers.length > 1) {
+				var route = L.polyline(markers).addTo(map);
+			}
+		}
+		
+		document.getElementById('reset-button').addEventListener('click', function() {
+			for (var i = 0; i < markers.length; i++) {
+				map.removeLayer(markers[i]);
+			}
+			markers = [];
+			map.removeLayer(route);
+		});
+	</script>
+</body>
+</html>
