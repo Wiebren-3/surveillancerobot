@@ -45,8 +45,8 @@
 			markers.forEach(function(marker, index) {
 				var markerElem = xmlDoc.createElement('Marker');
 				markerElem.setAttribute('Number', index + 1);
-				markerElem.setAttribute('Lat', marker.getLatLng().lat);
-				markerElem.setAttribute('Lng', marker.getLatLng().lng);
+				markerElem.setAttribute('Lat', marker.getLatLng().lat.toFixed(5));
+				markerElem.setAttribute('Lng', marker.getLatLng().lng.toFixed(5));
 				markerElem.setAttribute('RotationAngle', marker.options.rotationAngle || 0);
 				xmlDoc.documentElement.appendChild(markerElem);
 			});
@@ -85,20 +85,6 @@
 		button {
 			margin: 10px;
 		}
-		body {
-  		background-color: #f0f0f0;
-  		font-family: 'Abadi MT', sans-serif;
-		}
-
-		h1 {
-  		text-align: center;
-		}
-
-		button {
-  		margin: 10px;
-  		background-color: #ddd;
-		}
-
 	</style>
 </body>
 </html>
