@@ -1,101 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
+	<meta charset="utf-8">
 	<title>Add Route</title>
 	<style>
-		#mapid {
-			height: 500px;
-			width: 80%;
-			margin-left: auto;
-			margin-right: auto;
-			margin-top: 20px;
-			margin-bottom: 20px;
-			border: 1px solid gray;
-			box-shadow: 2px 2px lightgray;
+		html, body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			font-family: 'Abadi MT', sans-serif;
+			font-size: 16px;
+			color: #444;
 		}
 
-		.export-btn-container {
-			margin: 20px;
+		#map {
+			height: 70%;
+			width: 100%;
+		}
+
+		#button-container {
+			padding: 10px;
+			background-color: #ddd;
 			text-align: center;
 		}
 
-		.export-btn {
+		#reset-btn, #export-btn {
+			display: inline-block;
+			padding: 10px;
+			border-radius: 5px;
 			background-color: #4CAF50;
 			color: white;
-			padding: 10px 20px;
-			border: none;
-			border-radius: 5px;
+			text-align: center;
+			text-decoration: none;
+			font-size: 20px;
+			margin: 5px;
 			cursor: pointer;
-			font-size: 18px;
-			font-weight: bold;
+			box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 		}
 
-		.export-btn:hover {
+		#export-btn:hover {
 			background-color: #3e8e41;
 		}
 
-		.reset-btn-container {
-			margin: 20px;
-			text-align: center;
-		}
-
-		.reset-btn {
+		#reset-btn:hover {
 			background-color: #f44336;
-			color: white;
-			padding: 10px 20px;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			font-size: 18px;
-			font-weight: bold;
 		}
-
-		.reset-btn:hover {
-			background-color: #da190b;
-		}
-
-		h1 {
-			font-family: 'Abadi MT';
-			font-size: 48px;
-			font-weight: bold;
-			text-align: center;
-			margin-top: 30px;
-			margin-bottom: 30px;
-			color: #333;
-			text-shadow: 1px 1px lightgray;
-		}
-
 	</style>
-</head>
-<body>
-	<h1>Add Route</h1>
-	<div id="mapid"></div>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" />
 
-	<div class="export-btn-container">
-		<button class="export-btn" onclick="exportCoords()">Export Coords</button>
-	</div>
-
-	<div class="reset-btn-container">
-		<button class="reset-btn" onclick="resetMarkers()">Reset Markers</button>
-	</div>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js" integrity="sha512-dbeeoLzNl1+efk/4CO4HchX9NTEVGaCcg+SywTfUcT8bPoiYU6TzUvC2qlpxW8IhZXsPH1fGbFV7Dk1W8uV7eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script>
-		var map = L.map('mapid').setView([51.505, -0.09], 13);
-
-		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			maxZoom: 19,
-			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
-		}).addTo(map);
-
-		var markerLayer = L.layerGroup().addTo(map);
+		var map;
 		var markers = [];
-		var markerNumber = 0;
 
-        </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="js/main.js"></script>
-    </body>
+		function initMap() {
+			map = L.map('map').setView([52.37, 4.90], 13);
+			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+				maxZoom: 18,
+			}).addTo(map);
+			map.on('click', addMarker);
+		}
+
+		function addMarker(e) {
+			var markerNumber = markers.length + 1;
+			var marker = L.marker(e.latlng, {
+				draggable: true,
+				title: "Marker " + markerNumber
+			}).addTo(map);
+
+			marker.on('dragend', updateMarkers);
+
+			markers.push(marker);
+
+			updateMarkers();
+		}
+
+		function updateMarkers() {
+			var coords = "";
+			for (var i = 0; i < markers.length; i++) {
+				var latlng = markers[i].getLatLng();
+				coords += latlng.lat + ", " + latlng.lng + "\n";
+			}
+			$('#coords').val(coords);
+		}
+
+		function resetMarkers() {
+			for (var i = 0; i < markers.length; i++) {
+				map.removeLayer(markers[i]);
+			}
+			markers = [];
+			updateMarkers();
+		}
+
+		function exportMarkers() {
+			var xml = '<markers>\n';
+			for (var i = 0; i < markers.length; i++) {
+				var latlng = markers[i].getLatLng();
+				xml += '\t<marker>\n';
+				xml += '\t\t<number>' + (i+1) + '</number>\n';
+				xml
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
 </html>
