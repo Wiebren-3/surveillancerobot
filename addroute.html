@@ -3,106 +3,87 @@
 <head>
 	<meta charset="utf-8">
 	<title>Add Route</title>
-	<style>
-		html, body {
-			height: 100%;
-			margin: 0;
-			padding: 0;
-			font-family: 'Abadi MT', sans-serif;
-			font-size: 16px;
-			color: #444;
-		}
-
-		#map {
-			height: 70%;
-			width: 100%;
-		}
-
-		#button-container {
-			padding: 10px;
-			background-color: #ddd;
-			text-align: center;
-		}
-
-		#reset-btn, #export-btn {
-			display: inline-block;
-			padding: 10px;
-			border-radius: 5px;
-			background-color: #4CAF50;
-			color: white;
-			text-align: center;
-			text-decoration: none;
-			font-size: 20px;
-			margin: 5px;
-			cursor: pointer;
-			box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-		}
-
-		#export-btn:hover {
-			background-color: #3e8e41;
-		}
-
-		#reset-btn:hover {
-			background-color: #f44336;
-		}
-	</style>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" />
-
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+</head>
+<body>
+	<h1>Add Route</h1>
+	<div id="mapid" style="height: 500px;"></div>
+	<div>
+		<button id="reset-button">Reset markers</button>
+		<button id="export-button">Export Coords</button>
+	</div>
 	<script>
-		var map;
+		var map = L.map('mapid').setView([51.505, -0.09], 13);
+
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+			maxZoom: 18
+		}).addTo(map);
+
 		var markers = [];
 
-		function initMap() {
-			map = L.map('map').setView([52.37, 4.90], 13);
-			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-				maxZoom: 18,
-			}).addTo(map);
-			map.on('click', addMarker);
-		}
-
-		function addMarker(e) {
-			var markerNumber = markers.length + 1;
-			var marker = L.marker(e.latlng, {
-				draggable: true,
-				title: "Marker " + markerNumber
-			}).addTo(map);
-
-			marker.on('dragend', updateMarkers);
-
-			markers.push(marker);
-
-			updateMarkers();
-		}
-
-		function updateMarkers() {
-			var coords = "";
-			for (var i = 0; i < markers.length; i++) {
-				var latlng = markers[i].getLatLng();
-				coords += latlng.lat + ", " + latlng.lng + "\n";
-			}
-			$('#coords').val(coords);
-		}
-
 		function resetMarkers() {
-			for (var i = 0; i < markers.length; i++) {
-				map.removeLayer(markers[i]);
-			}
+			markers.forEach(function(marker) {
+				map.removeLayer(marker);
+			});
 			markers = [];
-			updateMarkers();
 		}
 
-		function exportMarkers() {
-			var xml = '<markers>\n';
-			for (var i = 0; i < markers.length; i++) {
-				var latlng = markers[i].getLatLng();
-				xml += '\t<marker>\n';
-				xml += '\t\t<number>' + (i+1) + '</number>\n';
-				xml
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="script.js"></script>
+		function onMapClick(e) {
+			var marker = L.marker(e.latlng).addTo(map);
+			markers.push(marker);
+		}
+
+		function exportCoords() {
+			// Maak een XML-document aan
+			var xmlDoc = document.implementation.createDocument(null, 'Markers');
+
+			// Maak een element aan voor elke marker
+			markers.forEach(function(marker, index) {
+				var markerElem = xmlDoc.createElement('Marker');
+				markerElem.setAttribute('Number', index + 1);
+				markerElem.setAttribute('Lat', marker.getLatLng().lat);
+				markerElem.setAttribute('Lng', marker.getLatLng().lng);
+				markerElem.setAttribute('RotationAngle', marker.options.rotationAngle || 0);
+				xmlDoc.documentElement.appendChild(markerElem);
+			});
+
+			// Maak een Blob-object aan met de XML-gegevens
+			var xmlData = new XMLSerializer().serializeToString(xmlDoc);
+			var blob = new Blob([xmlData], {type: 'application/xml'});
+
+			// Maak een anker-element aan om het bestand te downloaden
+			var url = URL.createObjectURL(blob);
+			var a = document.createElement('a');
+			a.href = url;
+			a.download = 'markers.xml';
+			document.body.appendChild(a);
+
+			// Klik op het anker-element om het bestand te downloaden
+			a.click();
+
+			// Verwijder het anker-element en het Blob-object
+			a.remove();
+			URL.revokeObjectURL(url);
+		}
+
+		map.on('click', onMapClick);
+		document.getElementById('reset-button').addEventListener('click', resetMarkers);
+		document.getElementById('export-button').addEventListener('click', exportCoords);
+	</script>
+	<style>
+		body {
+			background-color: #f0f0f0;
+			font-family: 'Abadi MT', sans-serif;
+		}
+		h1 {
+			text-align: center;
+		}
+		button {
+			margin: 10px;
+		}
+	</style>
 </body>
 </html>
