@@ -1,87 +1,89 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="utf-8">
-  <title>Add Route</title>
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js"></script>
-  <style>
-    #map {
-      height: 500px;
-      width: 100%;
-    }
-    body {
-      font-family: 'Abadi MT';
-      background-color: #f2f2f2;
-      margin: 0;
-    }
-    .btn {
-      display: inline-block;
-      padding: 8px 15px;
-      font-size: 16px;
-      font-weight: bold;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 5px;
-      color: white;
-      margin-top: 10px;
-    }
-    .reset-btn {
-      background-color: #FF6B6B;
-      border: none;
-    }
-    .export-btn {
-      background-color: #66BB6A;
-      border: none;
-    }
-    .btn:hover {
-      opacity: 0.8;
-    }
-    .btn:active {
-      transform: translateY(2px);
-    }
-  </style>
+	<meta charset="utf-8">
+	<title>Add Route</title>
+	<link href='https://fonts.googleapis.com/css?family=Abadi+MT' rel='stylesheet' type='text/css'>
+	<style>
+		body {
+			font-family: 'Abadi MT', sans-serif;
+			background-color: #f2f2f2;
+			margin: 0;
+			padding: 0;
+		}
+		#mapid {
+			height: 500px;
+			width: 100%;
+		}
+		#buttons {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			z-index: 1000;
+		}
+		.btn {
+			display: block;
+			margin-bottom: 10px;
+			padding: 10px;
+			border-radius: 5px;
+			border: none;
+			color: #fff;
+			background-color: #337ab7;
+			cursor: pointer;
+			font-size: 16px;
+		}
+		.btn:hover {
+			background-color: #286090;
+		}
+		#export {
+			margin-top: 20px;
+			background-color: #5cb85c;
+		}
+		#export:hover {
+			background-color: #4cae4c;
+		}
+		#reset {
+			background-color: #d9534f;
+		}
+		#reset:hover {
+			background-color: #c9302c;
+		}
+	</style>
 </head>
-
 <body>
-  <h1>Add Route</h1>
-  <div id="map"></div>
-  <div>
-    <button class="btn reset-btn" onclick="resetMarkers()">Reset Markers</button>
-    <a href="#" class="btn export-btn" onclick="exportMarkers()">Export Coords</a>
-  </div>
-  <script>
-    var map = L.map('map').setView([51.505, -0.09], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      maxZoom: 18,
-    }).addTo(map);
+	<div id="mapid"></div>
+	<div id="buttons">
+		<button class="btn" id="reset">Reset Markers</button>
+		<a href="#" class="btn" download="markers.xml" id="export">Export Coords</a>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
+	<script>
+		var mymap = L.map('mapid').setView([52.3667, 4.8945], 13);
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+		}).addTo(mymap);
 
-    var markerList = [];
-    var polyLine = L.polyline([], {color: 'blue'}).addTo(map);
+		var markerList = [];
+		var polyline = null;
 
-    function resetMarkers() {
-      for (var i = 0; i < markerList.length; i++) {
-        map.removeLayer(markerList[i]);
-      }
-      markerList = [];
-      polyLine.setLatLngs([]);
-    }
+		function addMarker(e) {
+			var markerNumber = markerList.length + 1;
+			var marker = L.marker(e.latlng, { draggable: true }).addTo(mymap).bindPopup('Marker ' + markerNumber).openPopup();
+			markerList.push(marker);
+			updatePolyline();
+		}
 
-    function exportMarkers() {
-      var xml = '<markers>';
-      for (var i = 0; i < markerList.length; i++) {
-        var marker = markerList[i];
-        var latlng = marker.getLatLng();
-        xml += '<marker>';
-        xml += '<number>' + (i + 1) + '</number>';
-        xml += '<lat>' + latlng.lat.toFixed(6) + '</lat>';
-        xml += '<lng>' + latlng.lng.toFixed(6) + '</lng>';
-        xml += '</marker>';
-      }
-      var angle = polyLine.getDirection();
-      xml += '<angle>' + angle.toFixed(2)
+		function updatePolyline() {
+			if (polyline) {
+				mymap.removeLayer(polyline);
+			}
+
+			var latlngs = [];
+			for (var i = 0; i < markerList.length; i++) {
+				latlngs.push(markerList[i].getLatLng());
+			}
+
+			if (latlngs.length > 1) {
+				polyline = L.polyline(latlngs, { color: 'red' }).addTo(m
